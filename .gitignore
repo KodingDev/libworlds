@@ -1,0 +1,6 @@
+.swc/
+.idea/
+build/
+node_modules/
+config.json
+yarn-error.log
