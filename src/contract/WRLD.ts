@@ -11,6 +11,7 @@ export class WRLDContract {
     return this.contract.balanceOf(address);
   }
 
+  // noinspection JSUnusedGlobalSymbols
   async getBalanceString(address: string) {
     return ethers.utils.formatEther(await this.getBalance(address));
   }

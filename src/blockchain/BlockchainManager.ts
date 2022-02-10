@@ -27,11 +27,13 @@ export const chains: Record<ChainName, Chain> = {
     id: "matic",
     name: "Polygon Mainnet",
     chainId: 137,
-    rpc: "https://polygon-mainnet.g.alchemy.com/v2/mmmzo_uwLk9un9rJNrM0n1-ZOPUpVRKl"
+    rpc: "https://polygon-mainnet.g.alchemy.com/v2/ZZhQH1Yt3EHggV-mBfVGZTrIy9o5XT9M"
   }
 };
 
-// ABI ref: 376
+export const getProvider = (chain: ChainName): ethers.providers.Provider => {
+  return new ethers.providers.JsonRpcProvider(chains[chain].rpc);
+};
 
 export default class BlockchainManager {
   private readonly signer: ethers.Signer;

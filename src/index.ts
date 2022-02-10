@@ -1,16 +1,23 @@
 import { ethers } from "ethers";
 import config from "../config.json";
-import { provider } from "./blockchain/wallet";
-import BlockchainManager, { chains } from "./blockchain/BlockchainManager";
+import BlockchainManager, { chains, getProvider } from "./blockchain/BlockchainManager";
 
+// Example
 const main = async () => {
+  const provider = getProvider("matic");
   const wallet = new ethers.Wallet(config.privateKey, provider);
+
   const blockchainManager = new BlockchainManager(wallet, chains.matic);
+  const wrld = await blockchainManager.getWrappedWRLDContract();
   const gaslessTransfer = await blockchainManager.getWrappedGaslessTransferContract();
 
-  console.log("Beginning transfer");
-  const result = await gaslessTransfer.send("0x426c8DCD3Bdcc64135Af3584B4AeF8D5dF4cCe3f", 2);
-  console.log(`Transfer result: ${result}`);
+  console.log(`Current balance: ${await wrld.getBalanceString(wallet.address)}`);
+
+  console.log("[TRANSFER] Beginning transfer");
+  const result = await gaslessTransfer.send("0xc986ad0ff7A752456a8E671b423868518fe8B833", 2);
+  console.log(`[TRANSFER] Result: ${result}`);
+
+  console.log(`Balance after transfer: ${await wrld.getBalanceString(wallet.address)}`);
 };
 
 main().catch(console.error);
