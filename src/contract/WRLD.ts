@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 
 export class WRLDContract {
   private readonly contract: ethers.Contract;
@@ -7,7 +7,7 @@ export class WRLDContract {
     this.contract = contract;
   }
 
-  async getBalance(address: string) {
+  async getBalance(address: string): Promise<BigNumber> {
     return this.contract.balanceOf(address);
   }
 
